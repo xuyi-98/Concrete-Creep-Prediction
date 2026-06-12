@@ -307,7 +307,7 @@ footer b{color:var(--ink)}
   </section>
 
   <footer>
-    <div style="margin-bottom:5px"><b>Models:</b>B3 — Bažant &amp; Baweja, RILEM TC-107 (1995); B4/B4s — RILEM TC-242-MDC, Mater. Struct. 48:753–770 (2015), B4 by mix composition with separate drying/autogenous shrinkage, B4s strength-only variant (constants per Tables 1–3/7–9; s₄ discrepancy between example 6.9e-3 and Table 9 value 4.0e-3 resolved per table); fib Model Code 2010; CEB-FIP MC 1990 (basis of Chinese JTG 3362 &amp; GB/T 50010); ACI 209R-92.</div>
+    <div style="margin-bottom:5px"><b>Models:</b>B4/B4s — RILEM TC-242-MDC, Mater. Struct. 48:753–770 (2015), B4 by mix composition with separate drying/autogenous shrinkage, B4s strength-only variant (constants per Tables 1–3/7–9; s₄ discrepancy between example 6.9e-3 and Table 9 value 4.0e-3 resolved per table); fib Model Code 2010; CEB-FIP MC 1990 (basis of Chinese JTG 3362 &amp; GB/T 50010); ACI 209R-92; B3 — Bažant &amp; Baweja, RILEM TC-107 (1995).</div>
     <div style="margin-bottom:5px"><b>Data source:</b> Northwestern University Creep and Shrinkage Database, MySQL edition 2021-05-03 (Šmilauer, Dohnalová, Šulc, Wan-Wendner, Bažant). The software embeds a filtered/downsampled subset (scope per "Built-in data range" below). Cement class (MC90 SL/N/R/RS) is extracted per test via creep_test/shrinkage_test → specimen → mix (M_cem_ModelCode_type); known for 966/1022 creep and 1040/2452 shrinkage series, used as an optional hard filter in similarity matching (unknown class is retained).</div>
     <div style="margin-bottom:5px"><b>Built-in data range:</b> Filtered/downsampled subset of NU Database (2021-05-03) — inclusion criteria: temperature 15–30°C or unrecorded, RH/V-S/age/strength/w-c complete, ≥5 valid data points, flagged suspect points excluded; creep 1022/1438 tests (10,106/29,184 points), shrinkage 2452/3558 tests (27,356/69,463 points), each downsampled to ≤12 log-spaced points. 35 tests at 25–30°C (4 creep, 31 shrinkage) excluded from matching by default; enable via checkbox (shown orange). Matching and scatter overlay operate within this subset only.</div>
     <div><b>Disclaimer:</b> ① Predictions represent mean trends; measured scatter is typically ±30%; important structures should supplement with match-cured tests; ② Linear creep assumption holds for σ/f<sub>c</sub>(t′) ≤ 0.4; ③ This tool is for preliminary comparison and construction-stage estimates; final design shall follow applicable code provisions.</div>
@@ -912,9 +912,9 @@ function renderDB(){
 
 function renderTable(){
   const {p}=LAST;
-  /* B3 moved to last column; B4/MC2010 highlighted */
+  /* B3 moved to last column; B4/MC2010/ACI209 highlighted */
   const models=[...LAST.models.filter(m=>m.label!=='B3'),...LAST.models.filter(m=>m.label==='B3')];
-  const BG={'B4':'#1971C214','MC2010':'#2F9E4414'};
+  const BG={'B4':'#1971C214','MC2010':'#2F9E4414','ACI 209':'#F48FB114'};
   const keys=[7,28,90,180,365,1825,3650,10950,36500].filter(d=>d<=p.dur);
   let html='<table class="res"><thead><tr><th rowspan="2">Loading t−t′</th><th rowspan="2">Age t<br>(Drying t−t₀)</th>';
   for(const m of models)html+=`<th colspan="5" class="mod"${BG[m.label]?` style="background:${BG[m.label]}"`:''}>${m.label}</th>`;
